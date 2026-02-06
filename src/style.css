@@ -1,0 +1,450 @@
+*{
+  margin: 0;
+  padding: 0;
+  
+}
+
+body[data-etat="1"] .hide-on-state0 {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body[data-etat="2"] .hide-on-state0 , .hide-on-state1{
+  opacity: 0;
+  pointer-events: none;
+}
+
+body[data-etat="0"] .hide-on-state1 {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body[data-etat="0"] {
+  background: linear-gradient(to bottom ,rgba(7, 128, 175),rgba(123, 204, 243));
+  overflow: hidden;
+}
+
+body[data-etat="1"] {
+  background: linear-gradient(to bottom ,rgb(0, 0, 0),rgb(0, 69, 101));
+  overflow: hidden;
+}
+
+body[data-etat="2"] {
+  background-color: red;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.herbe{
+  position: absolute;
+  width: 100%;
+  height: auto;
+  top: 70%;
+  z-index: 2;
+}
+
+.nuage-front{
+  background-image: url("image/image-prairie-nuage-front.png");
+  position: absolute;
+  width: 100%;
+  height: 500px;
+  top: 30%;
+  z-index: 0;
+  background-size: 100vw;
+  animation: nuage-front 40s linear infinite;
+  background-repeat: repeat;
+}
+
+@keyframes nuage-front {
+    0% {
+    background-position: 0px; 
+  }
+  100% {
+    background-position:  100vw;
+  }
+}
+
+.nuage-back{
+  background-image: url("image/image-prairie - 05-02-2026 11-14-5.png");
+  position: absolute;
+  width: 100%;
+  height: 600px;
+  top: 20%;
+  z-index: -1;
+  background-size: 100vw;
+  animation: nuage-front 70s linear infinite;
+  background-repeat: repeat;
+
+}
+
+.tree{
+  position: absolute;
+  z-index: 1;
+  width: 300px;
+  height:240px;
+  right: 5%;
+  bottom: 23%;
+}
+
+.sun {
+  top: 5px;
+  right: 5px;
+  display: flex;
+  z-index: 0;
+  justify-content: flex-end;
+  position: absolute;
+  margin-top: 10px;
+  margin-left: auto;
+  overflow: hidden;
+}
+
+.sun-image{
+  width: 200px;
+  height: auto;
+}
+
+.sun-image:hover{
+  animation: sun 2s infinite;
+}
+
+@keyframes sun {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform:rotate(360deg);
+  }
+}
+
+
+.cloud {
+  width: 200px;
+  height: 100px;
+  animation: cloud 5s;
+  border: none;
+  background-color: transparent;
+  z-index: 5;
+  bottom: 50px;
+}
+
+.cloud-image{
+  width: 200px;
+}
+
+@keyframes cloud {
+  0% {
+    transform: scale(50);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bird {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  transform: translate(87vw, 55vh);
+  z-index: 1;
+}
+
+.bird img {
+  width: 100%;
+  height: 100%;
+  animation: bird-fly 0.6s infinite steps(1);
+  animation-play-state: paused;
+}
+
+@keyframes bird-fly {
+  0%   { content: url("image/bird-1.png"); }
+  16%  { content: url("image/bird-2.png"); }
+  33%  { content: url("image/bird-3.png"); }
+  50%  { content: url("image/bird-4.png"); }
+  66%  { content: url("image/bird-5.png"); }
+  83%  { content: url("image/bird-6.png"); }
+  100% { content: url("image/bird-1.png"); }
+}
+
+.child{
+  width: 50px;
+  position: absolute;
+  overflow: hidden;
+  bottom: 40px;
+  animation: child 4s infinite, move 20s linear infinite;
+  z-index: 2;
+}
+
+.image-child{
+  width: 100%;
+  overflow: hidden;
+}
+
+@keyframes child {
+  0%   { content: url("image/child-1.png"); }
+  16%  { content: url("image/child-2.png"); }
+  33%  { content: url("image/child-3.png"); }
+  50%  { content: url("image/child-4.png"); }
+  66%  { content: url("image/child-5.png"); }
+  83%  { content: url("image/child-6.png"); }
+  100% { content: url("image/child-1.png"); }
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(-120px); 
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+.orange{
+  width: 30px;
+  position: absolute;
+  left: -120px;
+  top: 24%;
+  animation: orange-fly 0.5s infinite;
+}
+
+.orange-image{
+  width: 100%;
+}
+
+@keyframes orange-move {
+  0% {
+    transform: translate(100vw, 0);
+  }
+
+  20% {
+    transform: translate(75vw, -40px);
+  }
+
+  40% {
+    transform: translate(50vw, -20px);
+  }
+
+  60% {
+    transform: translate(25vw, 20px);
+  }
+
+  80% {
+    transform: translate(0, 40px);
+  }
+
+  100% {
+    transform: translate(-120px, 0);
+  }
+}
+
+
+@keyframes orange-fly {
+  0%     { content: url("image/orange-1.png"); }
+  12.5%  { content: url("image/orange-2.png"); }
+  25%    { content: url("image/orange-3.png"); }
+  37.5%  { content: url("image/orange-4.png"); }
+  50%    { content: url("image/orange-5.png"); }
+  62.5%  { content: url("image/orange-6.png"); }
+  75%    { content: url("image/orange-3.png"); }
+  87.5%  { content: url("image/orange-2.png"); }
+  100%   { content: url("image/orange-1.png"); }
+}
+
+.blue{
+  width: 30px;
+  position: absolute;
+  left: -120px;
+  top: 60%;
+  z-index: 4;
+  animation: blue-fly 0.5s infinite, blue-move 6s ease-in-out infinite;
+}
+
+@keyframes blue-move {
+  0% {
+    transform: translate(87vw, 20px) scaleX(1);
+  }
+  10%{
+    transform: translate(87vw, 20px) scaleX(1);
+  }
+  20% {
+    transform: translate(75vw, -40px);
+  }
+
+  40% {
+    transform: translate(53vw, 80px);
+  }
+  60% {
+    transform: translate(53vw, 80px) scaleX(1);
+  }
+  60.1%{
+    transform:  translate(53vw, 80px) scaleX(-1) ;
+  }
+  90%{
+    transform:  translate(87vw, 20px) scaleX(-1) ;
+  }
+  100% {
+    transform: translate(87vw, 20px) scaleX(-1);
+  }
+}
+
+@keyframes blue-fly {
+  0%        { content: url("image/blue-1.png"); }
+  11.11%    { content: url("image/blue-2.png"); }
+  22.22%    { content: url("image/blue-3.png"); }
+  33.33%    { content: url("image/blue-4.png"); }
+  44.44%    { content: url("image/blue-5.png"); }
+  55.55%    { content: url("image/blue-6.png"); }
+  66.66%    { content: url("image/blue-7.png"); }
+  77.77%    { content: url("image/blue-8.png"); }
+  88.88%    { content: url("image/blue-9.png"); }
+  100%      { content: url("image/blue-10.png"); }
+}
+
+.flowers{
+  width: 40px;
+  height: 55px;
+  top: 70%;
+  left:45%;
+  z-index: 3;
+  position: absolute;
+}
+
+.pink{
+  animation: pink-fly 0.5s infinite, pink-move 10s linear infinite;
+  left:1%;
+  top:30%;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+
+.pink-image{
+  width: 100%;
+}
+
+@keyframes pink-move {
+  0% {
+    transform: translate(-20vw, 20px);
+  }
+
+  25% {
+    transform: translate(35vw, 20px);
+  }
+
+  45% {
+    transform: translate(55vw, -60px);
+  }
+
+  55% {
+    transform: translate(50vw, -100px) scaleX(-1);
+  }
+  55.01%{
+    transform: translate(50vw, -100px) scaleX(-1);
+  }
+  65% {
+    transform: translate(45vw, 60px);
+  }
+
+  75% {
+    transform: translate(55vw, 20px);
+  }
+
+  100% {
+    transform: translate(120vw, 20px);
+  }
+}
+
+
+
+@keyframes pink-fly {
+  0%     { content: url("image/pink-1.png"); }
+  12.5%  { content: url("image/pink-2.png"); }
+  25%    { content: url("image/pink-3.png"); }
+  37.5%  { content: url("image/pink-4.png"); }
+  50%    { content: url("image/pink-5.png"); }
+  62.5%  { content: url("image/pink-6.png"); }
+  75%    { content: url("image/pink-7.png"); }
+  87.5%  { content: url("image/pink-8.png"); }
+  100%   { content: url("image/pink-9.png"); }
+}
+
+.child-buble{
+  position: absolute;
+  z-index: 3;
+  width: 100px;
+  top: 74%;
+  left: 20%;
+}
+
+.bubblepink {
+  z-index: 3;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 71%;
+  left: 15%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffffaa, #003cffa7);
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.bubblepink.pop {
+  transform: scale(1.5);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bubbleblue {
+  z-index: 3;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 74%;
+  left: 19%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffffaa, #f74fcda7);
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.bubbleblue.pop {
+  transform: scale(1.5);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bubblegreen {
+  z-index: 3;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 67%;
+  left: 18%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffffaa, #02a85aa7);
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.bubblegreen.pop {
+  transform: scale(1.5);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rain {
+  position: absolute;
+}
+
+.banc {
+  position: absolute;
+  top: 72%;
+  right: 40%;
+}

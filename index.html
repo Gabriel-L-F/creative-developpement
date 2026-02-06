@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>creative-developpement</title>
+  </head>
+  <body>
+    <div class="container">
+      <img class="banc hide-on-state1" src="image/banc.png" alt="">
+      <img class="flowers hide-on-state0" src="image/flowers.png" alt="">
+      <img class="herbe hide-on-state0" src="image/image-prairie-herbe.png" alt="">
+      <div class="nuage-front hide-on-state0"></div>
+      <div class="nuage-back hide-on-state0"></div>
+      <img class="tree hide-on-state0" src="image/image-prairie-tree.png" alt="">
+      <img class="child-buble hide-on-state0" src="image/child-buble.png" alt="">
+      <button class="cloud " id="bouton" data-etat="0">
+        <img class="cloud-image" src="image/cloud.png" alt="image nuage">
+      </button>
+      <div class="sun hide-on-state0">
+        <img class="sun-image" src="image/sun.png" alt="image soleil">
+      </div>
+      <div class="bird hide-on-state0">
+        <img  id="move" src="image/bird-1.png" alt="image-oiseau">
+      </div>
+      <div class="child hide-on-state0">
+        <img class="image-child" src="image/child-1.png" alt="image-enfant">
+      </div>
+      <div class="orange hide-on-state0">
+        <img class="orange-image" src="image/orange-1.png" alt="image papillon orange">
+      </div>
+      <div class="blue hide-on-state0">
+        <img class="blue-image" src="image/blue-1.png" alt="image papillon bleu">
+      </div>
+      <div class="pink hide-on-state0">
+        <img class="pink-image" src="image/pink-1.png" alt="image papillon rose">
+      </div>
+      <div class="bubblepink hide-on-state0"></div>
+      <div class="bubbleblue hide-on-state0"></div>
+      <div class="bubblegreen hide-on-state0"></div>
+      <audio id="popSound" src="audio/TOONPop_Bulles eclatent (ID 1074)_LaSonotheque.mp3"></audio>
+      <audio id="ambiance-prairie" autoplay loop>
+        <source src="audio/ambiance-prairie.mp3" type="audio/mpeg">
+      </audio>
+      <audio id="ambiance-pluie" autoplay loop>
+        <source src="audio/STORM_Pluie et orage 2 (ID 0740)_LaSonotheque.fr.mp3" type="audio/mpeg">
+      </audio>
+      <canvas id="rainCanvas" class="rain hide-on-state1"></canvas>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

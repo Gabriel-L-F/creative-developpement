@@ -1,23 +1,23 @@
 *{
   margin: 0;
   padding: 0;
-  
 }
 
-body[data-etat="1"] .hide-on-state0 {
+.hide-on-state0,
+.hide-on-state1,
+.hide-on-state2 {
   opacity: 0;
   pointer-events: none;
 }
 
-body[data-etat="2"] .hide-on-state0 , .hide-on-state1{
-  opacity: 0;
-  pointer-events: none;
+body[data-etat="0"] .hide-on-state0,
+body[data-etat="1"] .hide-on-state1,
+body[data-etat="2"] .hide-on-state2 {
+  opacity: 1;
+  pointer-events: auto;
+
 }
 
-body[data-etat="0"] .hide-on-state1 {
-  opacity: 0;
-  pointer-events: none;
-}
 
 body[data-etat="0"] {
   background: linear-gradient(to bottom ,rgba(7, 128, 175),rgba(123, 204, 243));
@@ -30,8 +30,50 @@ body[data-etat="1"] {
 }
 
 body[data-etat="2"] {
-  background-color: red;
+  background-color: rgb(0, 0, 0);
   overflow: hidden;
+}
+
+
+body[data-etat="1"] .cloud-image {
+  width: 120vw;
+}
+body[data-etat="1"] .cloud {
+  left: -120px;
+  top: -240px;
+}
+
+body[data-etat="2"] .cloud {
+  left: 22%;
+  top: 10%;
+}
+
+body[data-etat="2"] .cloud-image {
+  width: 100px;
+}
+
+.cloud {
+  animation: cloud 5s;
+  border: none;
+  background-color: transparent;
+  z-index: 5;
+  position: absolute;
+  z-index: 6;
+  top: 20%;
+  left: 45%;
+}
+
+.cloud-image{
+  width: 200px;
+}
+
+@keyframes cloud {
+  0% {
+    transform: scale(50);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .container {
@@ -123,28 +165,6 @@ body[data-etat="2"] {
 }
 
 
-.cloud {
-  width: 200px;
-  height: 100px;
-  animation: cloud 5s;
-  border: none;
-  background-color: transparent;
-  z-index: 5;
-  bottom: 50px;
-}
-
-.cloud-image{
-  width: 200px;
-}
-
-@keyframes cloud {
-  0% {
-    transform: scale(50);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 
 .bird {
   position: absolute;
@@ -395,11 +415,6 @@ body[data-etat="2"] {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.bubblepink.pop {
-  transform: scale(1.5);
-  opacity: 0;
-  pointer-events: none;
-}
 
 .bubbleblue {
   z-index: 3;
@@ -412,12 +427,6 @@ body[data-etat="2"] {
   background: radial-gradient(circle at 30% 30%, #ffffffaa, #f74fcda7);
   cursor: pointer;
   transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.bubbleblue.pop {
-  transform: scale(1.5);
-  opacity: 0;
-  pointer-events: none;
 }
 
 .bubblegreen {
@@ -433,10 +442,18 @@ body[data-etat="2"] {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.bubblegreen.pop {
-  transform: scale(1.5);
-  opacity: 0;
-  pointer-events: none;
+.bubblepink { background-color: pink; }
+.bubbleblue { background-color: lightblue; }
+.bubblegreen { background-color: lightgreen; }
+
+.pop {
+  animation: popAnimation 0.5s forwards;
+}
+
+@keyframes popAnimation {
+  0%   { transform: scale(1); opacity: 1; }
+  50%  { transform: scale(1.5); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; }
 }
 
 .rain {
@@ -448,3 +465,42 @@ body[data-etat="2"] {
   top: 72%;
   right: 40%;
 }
+
+
+.chambre {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-image: url("image/chambre2.jpeg");
+  background-size: cover;
+  z-index: 0;
+}
+
+.lune {
+  position: absolute;
+  border-radius: 100%;
+  width: 31px;
+  height: 31px;
+  left: 14%;
+  top :8%;
+  border: none;
+  background-color: transparent;
+}
+
+.chambre.nuit {
+  background-image: url("image/chambre_noir.png");
+
+}
+
+.eyes {
+  position: absolute;
+  width: 300px;
+  height: 150px;
+}
+
+#eyes1 { top: 35%; left: 15%; }
+#eyes2 { top: 40%; left: 80%; }
+#eyes3 { top: 80%; left: 10%; }
+#eyes4 { top: 80%; left: 70%; }
+#eyes5 { top: 60%; left: 40%; }
+#eyes6 { top: 1%; left: 40%; }

@@ -1,11 +1,8 @@
 import "./style.css";
 
-/* ton ancien code canvas/commenté reste inchangé ici */
-
-// ————————————————————
-// BOUTON ET AUDIO PAR ÉTAT
 const btn = document.getElementById("bouton");
-const cloudImg = btn.querySelector("img"); // image dans le bouton
+const lune = document.querySelector(".lune");
+const cloudImg = btn.querySelector("img"); 
 document.body.dataset.etat = 0;
 
 const ambiances = {
@@ -14,11 +11,10 @@ const ambiances = {
 };
 
 const images = {
-  0: "image/cloud.png",      // état 0
-  1: "image/cloud-rain.png", // état 1
+  0: "image/cloud.png",      
+  1: "image/cloud-rain.png", 
 };
 
-// fonction pour jouer l'audio selon l'état
 function playAmbiance(etat) {
   Object.values(ambiances).forEach(audio => {
     if (audio) {
@@ -29,20 +25,17 @@ function playAmbiance(etat) {
   ambiances[etat]?.play();
 }
 
-// fonction pour changer l'image du bouton
 function updateButtonImage(etat) {
   cloudImg.src = images[etat] || "image/cloud.png";
   cloudImg.alt = etat === 0 ? "nuage" : "pluie";
 }
 
-// appel initial
 updateButtonImage(0);
 playAmbiance(0);
 
-// clic sur le bouton
 btn.addEventListener("click", () => {
   let etat = Number(btn.dataset.etat);
-  etat = (etat + 1) % 3; // cycle entre 0 et 1
+  etat = (etat + 1) % 3; 
   btn.dataset.etat = etat;
   document.body.dataset.etat = etat;
 
@@ -50,10 +43,15 @@ btn.addEventListener("click", () => {
   playAmbiance(etat);
 });
 
+lune.addEventListener("click", () => {
+  const etat = lune.dataset.etat === "0" ? "1" : "0";
+  lune.dataset.etat = etat;
+
+  document.querySelector(".chambre")
+    .classList.toggle("nuit", etat === "1");
+});
+
 // ————————————————————
-// LE RESTE DE TON CODE EXISTANT NE CHANGE PAS
-// bulles, oiseau, papillon, etc.
-// (copie exactement ton code existant ici, inchangé)
 
 
 let birdX = 200;
@@ -76,8 +74,8 @@ function animate() {
     const dy = mouseY - birdY;
 
    
-    birdX += dx * 0.1; 
-    birdY += dy * 0.1;
+    birdX += dx * 0.01; 
+    birdY += dy * 0.01;
 
     //bird.style.left = birdX + "px";
     //bird.style.top = birdY + "px";
@@ -119,46 +117,26 @@ function playMove() {
 
 playMove();
 
-const bubblepink = document.querySelector('.bubblepink');
+const bubbles = document.querySelectorAll('.bubblepink, .bubbleblue, .bubblegreen');
 const sound = document.getElementById('popSound');
+const respawnTime = 2000; 
 
-bubblepink.addEventListener('click', () => {
-  sound.currentTime = 0;
-  sound.play();
+bubbles.forEach(bubble => {
+  bubble.addEventListener('click', () => {
+    sound.currentTime = 0;
+    sound.play();
 
-  bubblepink.classList.add('pop');
+    bubble.classList.add('pop');
 
-  setTimeout(() => {
-    bubblepink.classList.remove('pop');
-  }, 1500);
-});
+    bubble.addEventListener('animationend', () => {
+      bubble.style.display = 'none';
 
-const bubbleblue = document.querySelector('.bubbleblue');
-
-
-bubbleblue.addEventListener('click', () => {
-  sound.currentTime = 0;
-  sound.play();
-
-  bubbleblue.classList.add('pop');
-
-  setTimeout(() => {
-    bubbleblue.classList.remove('pop');
-  }, 1500);
-});
-
-const bubblegreen = document.querySelector('.bubblegreen');
-
-
-bubblegreen.addEventListener('click', () => {
-  sound.currentTime = 0;
-  sound.play();
-
-  bubblegreen.classList.add('pop');
-
-  setTimeout(() => {
-    bubblegreen.classList.remove('pop');
-  }, 1500);
+      setTimeout(() => {
+        bubble.style.display = 'inline-block';
+        bubble.classList.remove('pop'); 
+      }, respawnTime);
+    }, { once: true });
+  });
 });
 
 //_________________________________
@@ -209,3 +187,109 @@ window.addEventListener('load', () => {
 
   animate();
 });
+
+//_________________________________
+
+class EyePair {
+  constructor(canvasId) {
+    this.canvas = document.getElementById(canvasId);
+    if (!this.canvas) {
+      console.warn(`Canvas #${canvasId} introuvable !`);
+      return;
+    }
+
+    this.canvas.width = 300;
+    this.canvas.height = 150;
+    this.ctx = this.canvas.getContext("2d");
+
+    this.blinkLeft = 1;
+    this.blinkRight = 1;
+    this.dirLeft = -1;
+    this.dirRight = -1;
+    this.pauseLeft = 0;
+    this.pauseRight = 30;
+
+    this.mouseX = 150;
+    this.mouseY = 75;
+
+    this.canvas.addEventListener("mousemove", (e) => {
+      const rect = this.canvas.getBoundingClientRect();
+      this.mouseX = e.clientX - rect.left;
+      this.mouseY = e.clientY - rect.top;
+    });
+
+    this.animate = this.animate.bind(this);
+    requestAnimationFrame(this.animate);
+  }
+
+eye(x, ry) {
+  const dx = this.mouseX - x;
+  const dy = this.mouseY - 75;
+
+  this.ctx.beginPath();
+  this.ctx.ellipse(x, 75, 30, ry, 0, 0, Math.PI * 2);
+  this.ctx.fillStyle = "white";
+  this.ctx.fill();
+  this.ctx.stroke();
+
+  const maxOffsetX = 15; 
+  const maxOffsetY = 12; 
+
+  const distance = Math.sqrt(dx*dx + dy*dy);
+  let pupilleOffsetX = 0;
+  let pupilleOffsetY = 0;
+
+  if (distance > 0) {
+    pupilleOffsetX = (dx / distance) * maxOffsetX;
+    pupilleOffsetY = (dy / distance) * maxOffsetY;
+  }
+
+  this.ctx.beginPath();
+  this.ctx.arc(x + pupilleOffsetX, 75 + pupilleOffsetY, 6, 0, Math.PI * 2);
+  this.ctx.fillStyle = "black";
+  this.ctx.fill();
+}
+
+  drawEyes() {
+    const ryLeft = Math.max(0, 20 * this.blinkLeft);
+    const ryRight = Math.max(0, 20 * this.blinkRight);
+    this.eye(100, ryLeft);
+    this.eye(200, ryRight);
+  }
+
+  animate() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    if (this.pauseLeft > 0) this.pauseLeft--;
+    else {
+      this.blinkLeft += 0.08 * this.dirLeft;
+      if (this.blinkLeft <= 0) { this.blinkLeft = 0; this.dirLeft = 1; }
+      if (this.blinkLeft >= 1) { 
+        this.blinkLeft = 1; 
+        this.dirLeft = -1; 
+        this.pauseLeft = 60 + Math.random() * 60; 
+      }
+    }
+
+    if (this.pauseRight > 0) this.pauseRight--;
+    else {
+      this.blinkRight += 0.08 * this.dirRight;
+      if (this.blinkRight <= 0) { this.blinkRight = 0; this.dirRight = 1; }
+      if (this.blinkRight >= 1) { 
+        this.blinkRight = 1; 
+        this.dirRight = -1; 
+        this.pauseRight = 60 + Math.random() * 60; 
+      }
+    }
+
+    this.drawEyes();
+    requestAnimationFrame(this.animate);
+  }
+}
+
+new EyePair("eyes1");
+new EyePair("eyes2");
+new EyePair("eyes3");
+new EyePair("eyes4");
+new EyePair("eyes5");
+new EyePair("eyes6");
